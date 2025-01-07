@@ -1,0 +1,118 @@
+openapi: 3.0.1
+info:
+  title: Emprestimo
+  description: Simulação de empréstimos
+  version: 1.0.0
+paths:
+  /emprestimos:
+    get:
+      summary: Calcular uma simulação de empréstimo
+      operationId: getSimulacao
+      tags:
+        - Emprestimo
+      parameters:
+        - $ref: '#/components/parameters/valor'
+        - $ref: '#/components/parameters/dataNascimento'
+        - $ref: '#/components/parameters/parcelas'
+      responses:
+        200:
+          description: sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmprestimoResponse'
+
+
+  /emprestimos/batch:
+    post:
+      summary: Realizar processamento de muitas simulações de empréstimos
+      operationId: realizarSimulacoes
+      tags:
+        - Emprestimo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/EmprestimoRequest'
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EmprestimoResponse'
+
+
+
+components:
+  parameters:
+    valor:
+      in: query
+      name: valor
+      required: true
+      schema:
+        type: number
+
+    dataNascimento:
+      in: query
+      name: dataNascimento
+      required: true
+      schema:
+        type: string
+        format: date
+
+    parcelas:
+      in: query
+      name: parcelas
+      required: true
+      schema:
+        type: integer
+
+  schemas:
+
+    TokenResponse:
+      type: object
+      properties:
+        token:
+          type: string
+
+
+    EmprestimoResponse:
+      type: object
+      properties:
+        valorTotal:
+          type: number
+          example: 100.0
+        valorParcelas:
+          type: number
+          example: 10.1
+        totalJuros:
+          type: number
+          example: 101.0
+
+    EmprestimoRequest:
+      type: object
+      properties:
+        valor:
+          type: number
+          example: 100.0
+        dataNascimento:
+          type: string
+          format: date
+          example: "2024-10-01"
+        parcelas:
+          type: integer
+          example: 10
+
+    DadosAutenticacao:
+      type: object
+      properties:
+        login:
+          type: string
+        senha:
+          type: string
