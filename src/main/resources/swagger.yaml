@@ -1,17 +1,17 @@
 openapi: 3.0.1
 info:
-  title: Emprestimo
+  title: Simulacao Credito Creditas
   description: Simulação de empréstimos
   version: 1.0.0
 paths:
-  /emprestimos:
+  /simulacao/credito:
     get:
-      summary: Calcular uma simulação de empréstimo
-      operationId: getSimulacao
+      summary: Calcular uma simulação de um empréstimo para o cliente
+      operationId: getSimulacaoEmprestimo
       tags:
-        - Emprestimo
+        - Simulacao Credito
       parameters:
-        - $ref: '#/components/parameters/valor'
+        - $ref: '#/components/parameters/valorEmprestimo'
         - $ref: '#/components/parameters/dataNascimento'
         - $ref: '#/components/parameters/parcelas'
       responses:
@@ -20,40 +20,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EmprestimoResponse'
-
-
-  /emprestimos/batch:
-    post:
-      summary: Realizar processamento de muitas simulações de empréstimos
-      operationId: realizarSimulacoes
-      tags:
-        - Emprestimo
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/EmprestimoRequest'
-      responses:
-        '200':
-          description: Sucesso
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/EmprestimoResponse'
-
+                $ref: '#/components/schemas/SimulacaoEmprestimoResponse'
 
 
 components:
   parameters:
-    valor:
+    valorEmprestimo:
       in: query
-      name: valor
+      name: valorEmprestimo
       required: true
       schema:
         type: number
@@ -68,21 +42,13 @@ components:
 
     parcelas:
       in: query
-      name: parcelas
+      name: qtdParcelas
       required: true
       schema:
         type: integer
 
   schemas:
-
-    TokenResponse:
-      type: object
-      properties:
-        token:
-          type: string
-
-
-    EmprestimoResponse:
+    SimulacaoEmprestimoResponse:
       type: object
       properties:
         valorTotal:
@@ -94,25 +60,6 @@ components:
         totalJuros:
           type: number
           example: 101.0
-
-    EmprestimoRequest:
-      type: object
-      properties:
-        valor:
-          type: number
-          example: 100.0
-        dataNascimento:
+        dataSimulacao:
           type: string
-          format: date
-          example: "2024-10-01"
-        parcelas:
-          type: integer
-          example: 10
-
-    DadosAutenticacao:
-      type: object
-      properties:
-        login:
-          type: string
-        senha:
-          type: string
+          example: 2025-01-07
