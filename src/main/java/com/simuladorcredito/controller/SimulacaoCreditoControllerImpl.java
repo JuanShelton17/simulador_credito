@@ -24,7 +24,7 @@ public class SimulacaoCreditoControllerImpl implements SimulacaoApi {
     private final SimulacaoClienteService simulacaoClienteService;
 
     @Override
-    public ResponseEntity<SimulacaoEmprestimoResponse> getSimulacaoEmprestimo(String cpf, String email, BigDecimal valorEmprestimo, LocalDate dataNascimento, Integer qtdParcelas) {
+    public ResponseEntity<SimulacaoEmprestimoResponse>  getSimulacaoEmprestimo(String cpf, String email, BigDecimal valorEmprestimo, LocalDate dataNascimento, Integer qtdParcelas) {
         var dadosSimulacao = SimulacaoRequest.builder()
                 .cpf(cpf)
                 .email(email)

@@ -32,9 +32,11 @@ public class SimulacaoClienteServiceImpl implements SimulacaoClienteService {
 
     @Override
     public List<SimulacaoEmprestimoResponse> listarSimulacoes(String cpf) {
+
         Query query = new Query();
         query.addCriteria(Criteria.where("cpf").in(cpf));
         var list = mongoTemplate.find(query, SimulacaoCliente.class);
+
 
         return list.stream().map(this::toSimulacaoRequest).collect(Collectors.toList());
     }
