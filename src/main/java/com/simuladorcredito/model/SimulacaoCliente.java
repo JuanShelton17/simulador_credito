@@ -2,7 +2,6 @@ package com.simuladorcredito.model;
 
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
@@ -13,8 +12,8 @@ import java.time.LocalDate;
 @Document(collection = "simulacoes")
 public class SimulacaoCliente {
 
-    @Id
     private String cpf;
+    private String email;
     private BigDecimal valorEmprestimo;
     private BigDecimal valorParcelas;
     private BigDecimal valorTotal;

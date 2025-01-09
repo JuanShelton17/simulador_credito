@@ -11,6 +11,8 @@ paths:
       tags:
         - Simulacao Credito
       parameters:
+        - $ref: '#/components/parameters/cpf'
+        - $ref: '#/components/parameters/email'
         - $ref: '#/components/parameters/valorEmprestimo'
         - $ref: '#/components/parameters/dataNascimento'
         - $ref: '#/components/parameters/parcelas'
@@ -22,9 +24,35 @@ paths:
               schema:
                 $ref: '#/components/schemas/SimulacaoEmprestimoResponse'
 
+  /simulacao/cliente:
+    get:
+      summary: Busca as simulações de empréstimo do cliente
+      operationId: getSimulacoesClientes
+      tags:
+        - Simulacao Credito
+      parameters:
+        - $ref: '#/components/parameters/cpf'
+      responses:
+        200:
+          description: sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SimulacaoEmprestimoResponse'
+
 
 components:
   parameters:
+
+    cpf:
+      in: query
+      name: cpf
+      required: true
+      schema:
+        type: string
+
     valorEmprestimo:
       in: query
       name: valorEmprestimo
@@ -32,13 +60,6 @@ components:
       schema:
         type: number
 
-    dataNascimento:
-      in: query
-      name: dataNascimento
-      required: true
-      schema:
-        type: string
-        format: date
 
     parcelas:
       in: query
@@ -47,10 +68,31 @@ components:
       schema:
         type: integer
 
+    dataNascimento:
+      in: query
+      name: dataNascimento
+      required: true
+      schema:
+        type: string
+        format: date
+        example: 2000-01-17
+
+    email:
+      in: query
+      name: email
+      required: true
+      schema:
+        type: string
+
+
+
   schemas:
     SimulacaoEmprestimoResponse:
       type: object
       properties:
+        valorEmprestimo:
+          type: number
+          example: 100.0
         valorTotal:
           type: number
           example: 100.0

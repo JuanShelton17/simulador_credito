@@ -11,6 +11,7 @@ import java.time.LocalDate;
 public class SimulacaoRequest {
 
     private String cpf;
+    private String email;
     private BigDecimal valorEmprestimo;
     private BigDecimal valorParcelas;
     private BigDecimal valorTotal;
