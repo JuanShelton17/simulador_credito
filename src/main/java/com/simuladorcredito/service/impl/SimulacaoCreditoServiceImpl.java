@@ -41,12 +41,16 @@ public class SimulacaoCreditoServiceImpl implements SimulacaoCreditoService {
                 .valorTotal(totalPagamento)
                 .valorParcelas(parcelaMensal)
                 .totalJuros(jurosTotal)
+                .valorEmprestimo(simulacaoRequest.getValorEmprestimo())
+                .qtdParcelas(BigDecimal.valueOf(simulacaoRequest.getQtdParcelas()))
                 .build();
 
+        simulacaoRequest.setValorEmprestimo(simulacaoRequest.getValorEmprestimo());
         simulacaoRequest.setValorParcelas(parcelaMensal);
         simulacaoRequest.setValorTotal(totalPagamento);
         simulacaoRequest.setTotalJuros(jurosTotal);
         simulacaoRequest.setDataSimulacao(LocalDate.now());
+        simulacaoRequest.setQtdParcelas(simulacaoRequest.getQtdParcelas());
 
         simulacaoClienteService.salvarSimulacao(simulacaoRequest);
 

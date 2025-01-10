@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,6 +53,7 @@ public class SimulacaoClienteServiceImpl implements SimulacaoClienteService {
                 .dataSimulacao(simulacaoRequest.getDataSimulacao())
                 .qtdParcelas(simulacaoRequest.getQtdParcelas())
                 .dataNascimento(simulacaoRequest.getDataNascimento())
+                .qtdParcelas(simulacaoRequest.getQtdParcelas())
                 .build();
     }
 
@@ -62,6 +64,7 @@ public class SimulacaoClienteServiceImpl implements SimulacaoClienteService {
                 .totalJuros(simulacaoCliente.getTotalJuros())
                 .valorParcelas(simulacaoCliente.getValorParcelas())
                 .valorTotal(simulacaoCliente.getValorTotal())
+                .qtdParcelas(BigDecimal.valueOf(simulacaoCliente.getQtdParcelas()))
                 .build();
     }
 }

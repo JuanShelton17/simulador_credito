@@ -20,20 +20,19 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // Desabilita CSRF
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().authenticated() // Exige autenticação para qualquer requisição
+                        .anyRequest().authenticated()
                 )
-                .httpBasic(httpBasic -> httpBasic.realmName("Simulador de Crédito")); // Configuração explícita do HTTP Basic
+                .httpBasic(httpBasic -> httpBasic.realmName("Simulador de Crédito"));
         return http.build();
     }
 
     @Bean
     public UserDetailsService userDetailsService() {
-        // Configuração de usuários em memória
         UserDetails user = User.builder()
                 .username("username")
-                .password(passwordEncoder().encode("password")) // Use BCrypt para senhas
+                .password(passwordEncoder().encode("password"))
                 .roles("USER")
                 .build();
 

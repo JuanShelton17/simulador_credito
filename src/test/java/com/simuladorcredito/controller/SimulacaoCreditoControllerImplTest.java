@@ -3,10 +3,12 @@ package com.simuladorcredito.controller;
 import com.simuladorcredito.model.SimulacaoRequest;
 import com.simuladorcredito.service.SimulacaoClienteService;
 import com.simuladorcredito.service.SimulacaoCreditoService;
+import com.simuladorcredito.service.SimulacoesClientesService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.openapitools.model.SimulacaoEmprestimoRequest;
 import org.openapitools.model.SimulacaoEmprestimoResponse;
 import org.springframework.http.HttpStatus;
 
@@ -29,6 +31,8 @@ class SimulacaoCreditoControllerImplTest {
     @Mock
     private SimulacaoClienteService simulacaoClienteService;
 
+    @Mock
+    private SimulacoesClientesService simulacoesClientesService;
 
     @BeforeEach
     void setUp() {
@@ -86,7 +90,30 @@ class SimulacaoCreditoControllerImplTest {
                 () -> verify(simulacaoClienteService, times(1)).listarSimulacoes(cpf)
 
         );
+    }
 
+    @Test
+    void gerarSimulacoes(){
 
+        var simulacaoEmprestimoResponse = SimulacaoEmprestimoResponse.builder().dataSimulacao(LocalDate.now().toString()).valorEmprestimo(BigDecimal.TEN).valorParcelas(BigDecimal.TEN).valorTotal(BigDecimal.TEN).build();
+
+        when(simulacoesClientesService.gerarSimulacoes(List.of(request1()))).thenReturn((List.of(simulacaoEmprestimoResponse)));
+
+        var response = simulacaoCreditoController.gerarSimulacoes(List.of(request1()));
+
+        verify(simulacoesClientesService, times(1)).gerarSimulacoes(List.of(request1()));
+
+        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(List.of(simulacaoEmprestimoResponse), response.getBody());
+    }
+
+    private SimulacaoEmprestimoRequest request1(){
+        return SimulacaoEmprestimoRequest.builder()
+                .cpf("12345678901")
+                .email("teste1@teste.com")
+                .valorEmprestimo(BigDecimal.valueOf(100))
+                .dataNascimento(LocalDate.of(2000, 1, 1))
+                .qtdParcelas(12)
+                .build();
     }
 }

@@ -23,20 +23,23 @@ public class CalculoEmprestimoServiceImpl implements CalculoEmprestimoService {
     private final MessageSource messageSource;
 
     @Override
-    public BigDecimal calculaPagamentoMensal(BigDecimal valorEmprestimo, BigDecimal taxaAnual, int parcelas) {
-
-        BigDecimal taxaDeJurosMensal = taxaAnual.divide(BigDecimal.valueOf(12), 10, RoundingMode.HALF_UP);
+    public BigDecimal calculaPagamentoMensal(BigDecimal valorEmprestimo, BigDecimal taxaDeJuros, int parcelas) {
 
         MathContext mc = new MathContext(10, RoundingMode.HALF_UP);
 
-        BigDecimal calculoTaxa = taxaDeJurosMensal.add(BigDecimal.ONE, mc);
+        // 1 + r
+        BigDecimal calculoTaxa = taxaDeJuros.add(BigDecimal.ONE, mc);
 
+        // (1 + r)^(-n)
         BigDecimal fatorPotencia = calculoTaxa.pow(-parcelas, mc);
 
+        // 1 - (1 + r)^(-n)
         BigDecimal denominador = BigDecimal.ONE.subtract(fatorPotencia, mc);
 
-        BigDecimal numerador = valorEmprestimo.multiply(taxaDeJurosMensal, mc);
+        // PV * r
+        BigDecimal numerador = valorEmprestimo.multiply(taxaDeJuros, mc);
 
+        // PMT
         BigDecimal pmt = numerador.divide(denominador, mc);
 
         return pmt.setScale(2, RoundingMode.DOWN);

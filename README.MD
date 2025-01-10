@@ -26,10 +26,63 @@ https://github.com/JuanShelton17/simulador_credito
 4. **Spring Security**:
     - Usado para implementar autenticação básica via HTTP (Básica: `username`/`password`).
 
+---
+
+## Documentação da API
+A documentação completa da API, gerada pelo Swagger 3.0, está disponível em:
+
+  **http://localhost:8080/swagger-ui.html**
+
+---
+
+
+## Endpoints Disponíveis
+- **simulacao/credito**:
+
+```bash
+curl --location 'http://localhost:8080/simulacao/credito?cpf=12345678901&email=teste%40email.com&valorEmprestimo=100&dataNascimento=%22200-01-17%22&qtdParcelas=12' \
+--header 'Accept: application/json'
+```
+
+- **simulacao/cliente**:
+
+```bash
+curl --location 'http://localhost:8080/simulacao/cliente?cpf=12345678901' \
+--header 'Accept: application/json'
+```
+
+- **simulacao/clientes**:
+
+```bash
+curl --location 'http://localhost:8080/simulacao/clientes' \
+--header 'Content-Type: application/json' \
+--header 'Accept: application/json' \
+--header 'Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ=' \
+--data-raw '[
+  {
+    "cpf": "123456",
+    "email": "a@a.com.br",
+    "valorEmprestimo": 100,
+    "dataNascimento": "1999-02-11",
+    "qtdParcelas": 12
+  },
+  {
+    "cpf": "123654",
+    "email": "b@b.com.br",
+    "valorEmprestimo": 1000,
+    "dataNascimento": "1999-02-11",
+    "qtdParcelas": 12
+  }
+]'
+```
+
+---
 
 ## Desenho Arquitetural Para Resolver o Desafio
 
 ![img_2.png](img_2.png)
+
+---
 
 ## Vantagens da  Arquitetura
 

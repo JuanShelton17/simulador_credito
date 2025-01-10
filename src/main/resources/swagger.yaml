@@ -42,6 +42,30 @@ paths:
                 items:
                   $ref: '#/components/schemas/SimulacaoEmprestimoResponse'
 
+  /simulacao/clientes:
+    post:
+      summary: Realizar processamento de muitas simulações de empréstimos de diversos clientes
+      operationId: gerarSimulacoes
+      tags:
+        - Simulacao Credito
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/SimulacaoEmprestimoRequest'
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SimulacaoEmprestimoResponse'
+
 
 components:
   parameters:
@@ -96,6 +120,9 @@ components:
         valorTotal:
           type: number
           example: 100.0
+        qtdParcelas:
+          type: number
+          example: 2
         valorParcelas:
           type: number
           example: 10.1
@@ -105,3 +132,23 @@ components:
         dataSimulacao:
           type: string
           example: 2025-01-07
+
+    SimulacaoEmprestimoRequest:
+      type: object
+      properties:
+        cpf:
+          type: string
+          example: "123456"
+        email:
+          type: string
+          example: "a@a.com"
+        valorEmprestimo:
+          type: number
+          example: 100.0
+        dataNascimento:
+          type: string
+          format: date
+          example: "2024-10-01"
+        qtdParcelas :
+          type: integer
+          example: 10

@@ -34,7 +34,7 @@ class CalculoEmprestimoServiceImplTest {
         var valorEmprestimo = BigDecimal.valueOf(10);
         var taxaAnual = BigDecimal.valueOf(0.2);
         var parcelas = 10;
-        var expected = BigDecimal.valueOf(1.09);
+        var expected = BigDecimal.valueOf(2.38);
 
         var response = calculoEmprestimoServiceImpl.calculaPagamentoMensal(valorEmprestimo, taxaAnual, parcelas);
 

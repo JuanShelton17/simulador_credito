@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 public interface CalculoEmprestimoService {
 
-    BigDecimal calculaPagamentoMensal(BigDecimal valorEmprestimo, BigDecimal taxaAnual, int parcelas);
+    BigDecimal calculaPagamentoMensal(BigDecimal valorEmprestimo, BigDecimal taxaDeJuros, int parcelas);
 
     BigDecimal obterTaxaDeJuros(int idade);
 
