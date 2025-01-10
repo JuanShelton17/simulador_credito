@@ -5,7 +5,7 @@ Este repositório contém a implementação do microserviço: **simulador-credit
 ## Visão Geral
 
 ### **Microserviço**
-Este serviço gerencia a criação de cartões, consulta de saldo e armazenamento de dados no banco MongoDB.
+Este serviço gerencia a criação de simulações de crédito e armazenamento de dados no banco MongoDB.
 https://github.com/JuanShelton17/simulador_credito
 
 ---
