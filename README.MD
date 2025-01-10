@@ -14,8 +14,8 @@ https://github.com/JuanShelton17/simulador_credito
 
 ### **Backend**:
 
-1. **Spring Boot**:
-    - Framework para construir microserviços de forma simples e eficaz.
+1. **Spring Boot/Java**:
+    - Framework para construir microserviços de forma simples e eficaz com a linguagem JAVA na versão 21.
 
 2. **MongoDB**:
     - Banco de dados NoSQL utilizado para armazenar informações das simulações de cada cliente.
